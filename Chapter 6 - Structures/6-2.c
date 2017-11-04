@@ -149,7 +149,6 @@ int getword(char *word, int lim) {
  *******************************************************************/
 
 struct tnode *talloc(void);
-// char *strdup(char *);
 
 /*
  * addtree: from K&R2 page 141
@@ -179,16 +178,6 @@ struct tnode *talloc(void)
 {
 	return (struct tnode *) malloc(sizeof(struct tnode));
 }
-
-// /* strdup: From K&R2 page 143. Makes a duplicate of s. */
-// char *strdup(char *s)
-// {
-// 	char *p;
-// 	p = (char *) malloc(strlen(s) + 1);
-// 	if(p != NULL)
-// 		strcpy(p, s);
-// 	return p;
-// }
 
 /* getch and ungetch are from K&R2, page 79 */
 #define BUFSIZE 100
