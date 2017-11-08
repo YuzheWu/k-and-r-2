@@ -9,16 +9,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define HASHSIZE 101
+
+/* data structure for storing macro definitions */
 struct nlist {		/* table entry */
 	struct nlist *next;		/* next entry in chain */
 	char *name;				/* defined name */
 	char *defn;				/* replacement text*/
 };
-
-#define HASHSIZE 101
 static struct nlist *hashtab[HASHSIZE]; /* pointer table */
 
-/* remove name from the hashtab if already defined */
+/* test routine for the procedure undef */
+int main() {
+	void v_undef(char *s);
+	struct nlist *v_install(char *name,char *defn);
+	struct nlist *v_lookup(char *s);
+
+	printf("Starting test...\n");
+	v_install("a", "1");
+	v_install("b", "2");
+	v_lookup("a");
+	v_lookup("b");
+	v_undef("a");
+	v_lookup("a");
+	v_lookup("b");
+}
+
+/* undef: remove name from the hashtab if already defined */
 void undef(char *name) {
 	unsigned hash(char *);
 	struct nlist *np1, *np2;
@@ -35,22 +52,6 @@ void undef(char *name) {
 			np2->next = np1->next;
 		free((void *) np1);
 	}
-}
-
-/* test routine for the procedure undef */
-int main() {
-	void v_undef(char *s);
-	struct nlist *v_install(char *name,char *defn);
-	struct nlist *v_lookup(char *s);
-
-	printf("Starting test...\n");
-	v_install("a", "1");
-	v_install("b", "2");
-	v_lookup("a");
-	v_lookup("b");
-	v_undef("a");
-	v_lookup("a");
-	v_lookup("b");
 }
 
 /* v_undef: verbose version of undef */
